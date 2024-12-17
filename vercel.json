@@ -4,9 +4,9 @@
     {
       "src": "admin/package.json", 
       "use": "@vercel/static-build",
-      "config": {
-        "distDir": "admin/build"
-      }
+      "buildCommand": "npm run build"
+
+      
     },
     {
       "src": "src/server.js", 
