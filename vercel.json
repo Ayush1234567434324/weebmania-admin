@@ -15,10 +15,9 @@
   ],
   "routes": [
     {
-      "src": "/(.*)",
+      "src": "/admin/(.*)",
       "dest": "admin/$1"
-    }
-    ,
+    },
     {
       "src": "/(.*)",
       "dest": "src/server.js"
