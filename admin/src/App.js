@@ -19,10 +19,10 @@ function App() {
   useEffect(() => {
     function initClient() {
       gapi.client.init({
-        apiKey: 'AIzaSyAywWOAKuR3UIXrJwvg_2dNohx5rXJlWXg',
-        clientId: '206299084568-1l24jdsan30088ep52tvrrtdkoheqnf3.apps.googleusercontent.com',
-        discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'],
-        scope: 'https://www.googleapis.com/auth/drive.file',
+        apiKey: process.env.REACT_APP_GOOGLE_API_KEY,
+        clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+        discoveryDocs: [process.env.REACT_APP_GOOGLE_DISCOVERY_DOCS],
+        scope: process.env.REACT_APP_GOOGLE_SCOPE
       }).then(() => {
         gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
         updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
@@ -66,7 +66,7 @@ function App() {
   const handleUploadToDrive = (imageFile, parentFolderId, imageType) => {
     const fileContent = imageFile;
     let fileName = '';
-  
+
     // Assign a specific name based on the image type
     switch (imageType) {
       case 'cover':
@@ -87,21 +87,21 @@ function App() {
       default:
         fileName = imageFile.name; // Default to the file's original name if type is unknown
     }
-  
+
     const metadata = {
       name: fileName,
       mimeType: 'image/jpeg',
       parents: [parentFolderId],
     };
-  
+
     const accessToken = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token;
-  
+
     const formData = new FormData();
     formData.append('metadata', new Blob([JSON.stringify(metadata)], { type: 'application/json' }));
     formData.append('file', fileContent);
-  
+
     setLoading(true); // Show loading spinner
-  
+
     fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart', {
       method: 'POST',
       headers: new Headers({ 'Authorization': 'Bearer ' + accessToken }),
@@ -166,14 +166,14 @@ function App() {
           });
         });
       }
-      
+
       // Upload other images (cover, end, intro, common) to the parent folder
       ['cover', 'end', 'intro', 'common'].forEach((imageType) => {
         if (images[imageType]) {
           handleUploadToDrive(images[imageType].file, parentFolderId, imageType); // Pass the respective imageType
         }
       });
-      
+
       setSelectedFiles([]);
       setLoading(false);
     });
