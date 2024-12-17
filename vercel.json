@@ -14,5 +14,9 @@
         "src": "/(.*)",
         "dest": "src/server.js"
       }
+      ,
+      { "src": "/(.*)", 
+      "dest": "admin/build/$1"
+     }
     ]
   }
