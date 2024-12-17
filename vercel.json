@@ -6,10 +6,10 @@
       "use": "@vercel/node"
     },
     {
-      "src": "react-app/package.json",
+      "src": "admin/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "react-app/build"
+        "distDir": "admin/build"
       }
     }
   ],
