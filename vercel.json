@@ -2,18 +2,15 @@
   "version": 2,
   "builds": [
     {
-      "src": "app.js", 
-      "use": "@vercel/node"
+      "src": "admin/package.json", 
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "admin/build"
+      }
     },
     {
-      "src": "admin/package.json", 
-      "use": "@vercel/node", 
-      "builds": [
-        {
-          "src": "admin/package.json", 
-          "use": "@vercel/node"
-        }
-      ]
+      "src": "app.js", 
+      "use": "@vercel/node"
     }
   ],
   "routes": [
