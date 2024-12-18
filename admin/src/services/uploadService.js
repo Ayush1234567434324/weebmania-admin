@@ -10,10 +10,11 @@ export const uploadImagesToDrive = (images, folderName) => {
        // Upload other images (cover, end, intro, common)
        const imageUploadPromises = ['cover', 'end', 'intro', 'common'].map((imageType) => {
         if (images[imageType]) {
-          alert('no');
           return handleUploadToDrive(images[imageType].file, parentFolderId, imageType);
         }
-      });
+        return undefined; // Return undefined if the image does not exist
+      }).filter(Boolean); // Filter out undefined values
+      
 
     // Upload pages first if any
     if (images.pages.length > 0) {
