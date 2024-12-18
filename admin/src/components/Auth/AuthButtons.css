@@ -1,0 +1,35 @@
+/* AuthButtons.css */
+.auth-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .auth-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .auth-button.google {
+    background-color: #db4437;
+    color: white;
+  }
+  
+  .auth-button.google:hover {
+    background-color: #c1351d;
+  }
+  
+  .auth-button.facebook {
+    background-color: #3b5998;
+    color: white;
+  }
+  
+  .auth-button.facebook:hover {
+    background-color: #2d4373;
+  }
+  

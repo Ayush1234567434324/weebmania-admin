@@ -1,0 +1,33 @@
+/* Loader.css */
+.loader {
+    position: fixed; /* Make it fixed to cover the entire screen */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    z-index: 9999; /* Ensure it appears on top of other content */
+  }
+  
+  .spinner {
+    border: 8px solid #f3f3f3; /* Light gray background */
+    border-top: 8px solid #3498db; /* Blue color for the spinner */
+    border-radius: 50%;
+    width: 80px; /* Larger size */
+    height: 80px; /* Larger size */
+    animation: spin 1.5s linear infinite; /* Faster animation */
+  }
+  
+  /* Create the spinning animation */
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
