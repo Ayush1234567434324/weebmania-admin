@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 const useGoogleAuth = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [userEmail, setUserEmail] = useState(null);
+ // const [userEmail, setUserEmail] = useState(null);
   const authorizedEmail = process.env.REACT_APP_GOOGLE_ADMIN_LOGIN;
 
   useEffect(() => {
@@ -16,9 +16,7 @@ const useGoogleAuth = () => {
       }).then(() => {
         gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
         updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-      }).catch((error) => {
-        toast.error("Error initializing Google API client.");
-      });
+      })
     }
 
     gapi.load('client:auth2', initClient);
@@ -31,7 +29,7 @@ const useGoogleAuth = () => {
     
       if (email === authorizedEmail) {
         setIsAuthenticated(true);
-        setUserEmail(email);
+        //setUserEmail(email);
         toast.success("Signed in successfully.");
       } else {
         toast.error("Unauthorized email address. Access denied.");
@@ -39,7 +37,7 @@ const useGoogleAuth = () => {
       }
     } else {
       setIsAuthenticated(false);
-      setUserEmail(null);
+      //setUserEmail(null);
       
     }
   };
@@ -49,9 +47,7 @@ const useGoogleAuth = () => {
       .then(() => {
         toast.info("Signing in...");
       })
-      .catch((error) => {
-        toast.error("Error signing in.");
-      });
+    
   };
 
   const handleSignOut = (showtoast=true) => {
