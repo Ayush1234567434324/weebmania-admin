@@ -1,5 +1,6 @@
 const express = require("express");
-const path = require("path"); // Import the path module
+const path = require("path");
+const { imageRoute } = require("./routes/imageRoute"); // Separate routes into files
 
 const app = express();
 
@@ -11,12 +12,12 @@ app.get("/api", (req, res) => {
     res.json({ message: "Hello from Express API!" });
 });
 
+// Image route to fetch image from Google Drive
+app.use("/image", imageRoute); // Use the imageRoute
+
 // For any other route, serve the React app's index.html
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "../admin", "build", "index.html"));
 });
 
-// Start the server
-
-
-module.exports = app; // Export the app
+module.exports = app;

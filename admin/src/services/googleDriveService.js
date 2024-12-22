@@ -92,3 +92,50 @@ export const createFolder = (folderName) => {
       });
     });
   };
+
+
+  export const fetchImagesFromFolder = async (folderName) => {
+    const folderId = await getFolderIdByName(folderName);
+  
+    if (!folderId) {
+      throw new Error('Folder not found');
+    }
+  
+    const files = await listFilesInFolder(folderId);
+    return files;
+  };
+  
+  const getFolderIdByName = async (folderName) => {
+    try {
+      const response = await window.gapi.client.drive.files.list({
+        q: `name = '${folderName}' and mimeType = 'application/vnd.google-apps.folder'`,
+        fields: 'files(id, name)',
+      });
+  
+      const folder = response.result.files[0];
+      if (folder) {
+        return folder.id;
+      } else {
+        throw new Error('Folder not found');
+      }
+    } catch (error) {
+      console.error('Error fetching folder ID:', error);
+      return null;
+    }
+  };
+  
+  const listFilesInFolder = async (folderId) => {
+    try {
+      const response = await window.gapi.client.drive.files.list({
+        q: `'${folderId}' in parents`,
+        fields: 'files(id, name, mimeType)',
+      });
+  
+      return response.result.files.filter(file =>
+        file.mimeType.startsWith('image/') // Filter only images
+      );
+    } catch (error) {
+      console.error('Error listing files in folder:', error);
+      return [];
+    }
+  };

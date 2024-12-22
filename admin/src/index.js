@@ -2,12 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import { Provider } from 'react-redux';  // Import the Provider from react-redux
+import store from './redux/store';  // Import the store you've configured
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>  {/* Wrap App with Provider to connect Redux */}
+      <App />
+    </Provider>
   </React.StrictMode>
 );
 
