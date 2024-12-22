@@ -1,0 +1,90 @@
+/* Chapter component container */
+.chapter-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+  background-color: #f7f7f7;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading */
+.chapter-container__heading {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Paragraph for selected folder */
+.chapter-container__folder-info {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Image Gallery container */
+.chapter-container__gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 10px;
+}
+
+/* Individual image item */
+.chapter-container__image-item {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  text-align: center;
+}
+
+.chapter-container__image-item:hover {
+  transform: translateY(-5px);
+}
+
+/* Image style */
+.chapter-container__image {
+  border: 0;
+  object-fit: cover;
+  border-radius: 8px 8px 0 0;
+}
+
+/* Image name */
+.chapter-container__image-name {
+  font-size: 1rem;
+  color: #333;
+  padding: 10px;
+  background-color: #f9f9f9;
+  margin: 0;
+  border-radius: 0 0 8px 8px;
+}
+
+/* No images found message */
+.chapter-container__no-images-message {
+  font-size: 1.2rem;
+  color: #777;
+  text-align: center;
+  grid-column: span 2;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .chapter-container__heading {
+      font-size: 2rem;
+  }
+
+  .chapter-container__image {
+      height: 150px;
+  }
+
+  .chapter-container__gallery {
+      grid-template-columns: 1fr;
+      padding: 10px;
+  }
+}
