@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { fetchExistingFolders } from '../../services/googleDriveService';
+import { useDispatch } from 'react-redux';
+import { verifyAndNavigate } from '../../features/folder/folderSlice';
 import { useNavigate } from 'react-router-dom';
 import './FolderNameInput.css';
 
@@ -8,7 +10,7 @@ const FolderNameInput = ({ folderName, setFolderName }) => {
   const [selectedFolder, setSelectedFolder] = useState(null);
   const [isVerified, setIsVerified] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
- 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,11 +34,9 @@ const FolderNameInput = ({ folderName, setFolderName }) => {
 
   const handleVerify = () => {
     if (selectedFolder) {
-    
+      dispatch(verifyAndNavigate(selectedFolder, navigate)); // Dispatch action and navigate
       setIsVerified(true);
-
       console.log(`Working with existing folder: ${selectedFolder}`);
-      navigate('/chapter-upload', { state: { folderName: selectedFolder } });
     } else {
       alert('Please select an existing folder.');
     }

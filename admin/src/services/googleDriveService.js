@@ -1,4 +1,14 @@
 import { gapi } from "gapi-script";
+
+// Function to get the 'Manga' folder ID
+export const getMangaFolderId = () => {
+  return '1gjq1E_hi08sV1bBNYdKMmmF0DDaaT14B';
+};
+
+
+
+
+
 export const createFolder = (folderName) => {
     return gapi.client.drive.files.create({
       resource: {
@@ -7,6 +17,8 @@ export const createFolder = (folderName) => {
       },
     });
   };
+
+
   
   export const createSubFolder = (parentFolderId, subFolderName) => {
     return gapi.client.drive.files.create({
@@ -19,18 +31,30 @@ export const createFolder = (folderName) => {
   };
 
   export const fetchExistingFolders = async (query) => {
-    const drive = gapi.client.drive;
     try {
-      const response = await drive.files.list({
-        q: `mimeType='application/vnd.google-apps.folder' and name contains '${query}'`,
-        fields: 'files(name)',
+      // Get the Manga folder ID
+      const mangaFolderId = getMangaFolderId();
+  
+      // Ensure that the mangaFolderId exists before proceeding
+      if (!mangaFolderId) {
+        console.error('Manga folder not found');
+        return [];
+      }
+  
+      // Query Google Drive to search for folders inside the Manga folder
+      const response = await gapi.client.drive.files.list({
+        q: `mimeType='application/vnd.google-apps.folder' and name contains '${query}' and '${mangaFolderId}' in parents`,
+        fields: 'files(id, name)', // Fetch id and name of the folders
       });
+  
+      // Return an array of folder names
       return response.result.files.map(file => file.name);
     } catch (error) {
-      console.error('Error fetching folders:', error);
+      console.error('Error fetching folders inside Manga:', error);
       return [];
     }
   };
+  
   
   export const handleUploadToDrive = (imageFile, parentFolderId, imageType) => {
     const fileContent = imageFile;

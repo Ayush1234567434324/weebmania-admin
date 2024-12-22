@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { fetchImagesFromFolder } from '../../services/googleDriveService';
 import './Chapter.css';
 
 export default function Chapter() {
     const [images, setImages] = useState([]);
-    const location = useLocation();
-    const selectedFolder = location.state?.folderName;
-   //console.log(selectedFolder)
+    const selectedFolder = useSelector((state) => state.folder.selectedFolder);
+
     useEffect(() => {
         const fetchImages = async () => {
             try {

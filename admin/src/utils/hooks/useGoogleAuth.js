@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 const useGoogleAuth = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
  // const [userEmail, setUserEmail] = useState(null);
-  const authorizedEmail = "ayushbhandariweeb@gmail.com";
+  const authorizedEmail = process.env.REACT_APP_GOOGLE_ADMIN_LOGIN;
 
 useEffect(() => {
   function initClient() {
