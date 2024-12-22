@@ -1,42 +1,23 @@
 import React, { useState } from 'react';
 import './App.css';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import useGoogleAuth from './utils/hooks/useGoogleAuth';
 import useImageUpload from './utils/hooks/useImageUpload';
-import { uploadImagesToDrive } from './services/uploadService';
+import useImageUploadHandler from './utils/hooks/useImageUploadHandler';
 import AuthButtons from './components/Auth/AuthButtons';
-import ImageUpload from './components/ImageUpload/ImageUpload';
-import FolderNameInput from './components/FolderInput/FolderNameInput';
-import UploadButton from './components/Auth/UploadButton';
 import Loader from './components/Loader/Loader';
+import Admin from './components/Admin/Admin';
 
 const App = () => {
   const [folderName, setFolderName] = useState('');
-  const [loading, setLoading] = useState(false);
   const { isAuthenticated, handleSignIn, handleSignOut } = useGoogleAuth();
   const { images, handleImageChange } = useImageUpload();
-
-  const handleUploadAll = () => {
-    if (!folderName) {
-      console.log('Please provide a folder name.');
-      return;
-    }
-
-    setLoading(true);
-
-    uploadImagesToDrive(images, folderName)
-      .then(() => {
-        setLoading(false);
-        console.log('Files uploaded successfully!');
-        window.location.reload();
-      })
-      .catch((error) => {
-        setLoading(false);
-        console.error('Error uploading files:', error);
-      });
-  };
+  const { loading, handleUploadAll } = useImageUploadHandler(images, folderName);
 
   return (
     <div className="App">
+      <ToastContainer position="top-right" autoClose={3000} />
       <div className="container">
         {loading ? (
           <Loader /> // Show Loader only when uploading
@@ -48,15 +29,19 @@ const App = () => {
               handleSignIn={handleSignIn}
               handleSignOut={handleSignOut}
             />
-            <FolderNameInput folderName={folderName} setFolderName={setFolderName} />
+
             {isAuthenticated && (
-              <ImageUpload handleImageChange={handleImageChange} images={images} />
+             
+             <Admin
+                folderName={folderName}
+                setFolderName={setFolderName}
+                images={images}
+                handleImageChange={handleImageChange}
+                loading={loading}
+                handleUploadAll={handleUploadAll}
+                isAuthenticated={isAuthenticated}
+              />
             )}
-            <UploadButton
-              loading={loading}
-              isAuthenticated={isAuthenticated}
-              handleUploadAll={handleUploadAll}
-            />
           </>
         )}
       </div>

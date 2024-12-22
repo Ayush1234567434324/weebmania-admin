@@ -1,0 +1,132 @@
+/* FolderNameInput.css */
+
+/* General Layout and Spacing */
+.input-group {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;  /* Light background */
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+  
+  .input-label h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .input-field {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  .input-field:focus {
+    border-color: #007bff;
+  }
+  
+  .dropdown-suggestions {
+    margin-top: 10px;
+    padding: 0;
+    list-style-type: none;
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+  }
+  
+  .dropdown-suggestions li {
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .dropdown-suggestions li:hover {
+    background-color: #f1f1f1;
+  }
+  
+  /* Verify Button Styles */
+  .verify-section {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .verify-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    font-size: 20px;
+    background-color: #f7f7f7;  /* Light gray background */
+    color: #333;
+    border: 2px solid #ddd;
+    border-radius: 50%;  /* Circular button */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .verify-button:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .verify-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
+  }
+  
+  /* Verified Button Styles */
+  .verify-button.verified {
+    background-color: #28a745;  /* Green for verified state */
+    color: white;
+    border-color: #28a745;
+  }
+  
+  .verify-button.verified:hover {
+    background-color: #218838;  /* Darker green on hover */
+  }
+  
+  /* Spinner Styles */
+  .spinner-new {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #007bff;  /* Blue spinner */
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    animation: spin 1s linear infinite;
+  }
+  
+  /* Spin Animation */
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  /* New Folder Text Styles */
+  .verify-button.new {
+    background-color: #f0ad4e;  /* Warm orange for "New" */
+    color: white;
+    border-color: #f0ad4e;
+  }
+  
+  .verify-button.new:hover {
+    background-color: #ec971f;  /* Darker orange on hover */
+  }
+  
+  

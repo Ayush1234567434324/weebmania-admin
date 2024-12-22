@@ -39,18 +39,6 @@ const ImageUpload = ({ handleImageChange, images }) => {
         className="image-upload-input"
       />
       {images.common && <ImagePreview image={images.common} imageCategory="common" />}
-
-      <h2>Page Images (Collection)</h2>
-      <input
-        type="file"
-        accept="image/*"
-        multiple
-        onChange={(e) => handleImageChange(e, 'pages')}
-        className="image-upload-input"
-      />
-      {images.pages.length > 0 && images.pages.map((page, index) => (
-        <ImagePreview key={index} image={page} imageCategory="pages" />
-      ))}
     </div>
   );
 };
