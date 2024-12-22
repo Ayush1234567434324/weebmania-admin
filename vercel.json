@@ -12,11 +12,6 @@
   ],
   "routes": [
     {
-      "src": "/admin/(.*)",
-      "dest": "/admin/build/index.html"
-    }
-    ,
-    {
       "src": "/(.*)",
       "dest": "src/server.js"
     }
