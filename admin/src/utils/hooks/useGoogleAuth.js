@@ -7,27 +7,27 @@ const useGoogleAuth = () => {
  // const [userEmail, setUserEmail] = useState(null);
   const authorizedEmail = process.env.REACT_APP_GOOGLE_ADMIN_LOGIN;
 
-  useEffect(() => {
-    function initClient() {
-      gapi.client.init({
-        apiKey: process.env.REACT_APP_GOOGLE_API_KEY,
-        clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID,
-        discoveryDocs: [process.env.REACT_APP_GOOGLE_DISCOVERY_DOCS],
-        scope: process.env.REACT_APP_GOOGLE_SCOPE,
-      }).then(() => {
-        gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
-        updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-      });
-    }
-  
-    gapi.load('client:auth2', initClient);
-  });
-  
+useEffect(() => {
+  function initClient() {
+    gapi.client.init({
+      apiKey: process.env.REACT_APP_GOOGLE_API_KEY,
+      clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+      discoveryDocs: [process.env.REACT_APP_GOOGLE_DISCOVERY_DOCS],
+      scope: process.env.REACT_APP_GOOGLE_SCOPE,
+    }).then(() => {
+      gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+      updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+    });
+  }
+
+  gapi.load('client:auth2', initClient);
+});
+
   const updateSigninStatus = (isSignedIn) => {
     if (isSignedIn) {
       const profile = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile();
       const email = profile.getEmail();
-    
+       console.log(authorizedEmail);
       if (email === authorizedEmail) {
         setIsAuthenticated(true);
         //setUserEmail(email);
