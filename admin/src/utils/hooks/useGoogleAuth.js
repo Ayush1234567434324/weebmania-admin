@@ -4,26 +4,25 @@ import { toast } from 'react-toastify';
 
 const useGoogleAuth = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [userEmail, setUserEmail] = useState(null);
+ // const [userEmail, setUserEmail] = useState(null);
   const authorizedEmail = process.env.REACT_APP_GOOGLE_ADMIN_LOGIN;
 
   useEffect(() => {
     function initClient() {
       gapi.client.init({
+        apiKey: process.env.REACT_APP_GOOGLE_API_KEY,
         clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID,
         discoveryDocs: [process.env.REACT_APP_GOOGLE_DISCOVERY_DOCS],
         scope: process.env.REACT_APP_GOOGLE_SCOPE,
       }).then(() => {
         gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
         updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-      }).catch((error) => {
-        toast.error("Error initializing Google API client.");
       });
     }
-
+  
     gapi.load('client:auth2', initClient);
-  }, [updateSigninStatus]);
-
+  });
+  
   const updateSigninStatus = (isSignedIn) => {
     if (isSignedIn) {
       const profile = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile();
@@ -31,15 +30,15 @@ const useGoogleAuth = () => {
     
       if (email === authorizedEmail) {
         setIsAuthenticated(true);
-        setUserEmail(email);
+        //setUserEmail(email);
         toast.success("Signed in successfully.");
       } else {
         toast.error("Unauthorized email address. Access denied.");
-        handleSignOut(true); // Sign out the unauthorized user
+        handleSignOut(false); // Sign out the unauthorized user
       }
     } else {
       setIsAuthenticated(false);
-      setUserEmail(null);
+      //setUserEmail(null);
       
     }
   };
@@ -47,17 +46,15 @@ const useGoogleAuth = () => {
   const handleSignIn = () => {
     gapi.auth2.getAuthInstance().signIn()
       .then(() => {
-        toast.success("Signing in...");
+        toast.info("Signing in...");
       })
-      .catch((error) => {
-        toast.error("Error signing in.");
-      });
+    
   };
 
-  const handleSignOut = (val) => {
+  const handleSignOut = (showtoast=true) => {
     gapi.auth2.getAuthInstance().signOut()
       .then(() => {
-        val
+        if(showtoast)
         toast.success("Signed out successfully.");
       })
       .catch((error) => {
