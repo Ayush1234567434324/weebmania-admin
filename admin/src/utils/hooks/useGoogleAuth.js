@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 const useGoogleAuth = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
  // const [userEmail, setUserEmail] = useState(null);
-  const authorizedEmail = process.env.REACT_APP_GOOGLE_ADMIN_LOGIN;
+  const authorizedEmail = "ayushbhandariweeb@gmail.com";
 
 useEffect(() => {
   function initClient() {
@@ -27,7 +27,7 @@ useEffect(() => {
     if (isSignedIn) {
       const profile = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile();
       const email = profile.getEmail();
-       console.log(authorizedEmail);
+       
       if (email === authorizedEmail) {
         setIsAuthenticated(true);
         //setUserEmail(email);
